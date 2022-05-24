@@ -19,42 +19,40 @@ import {Counter} from './features/counter/counter';
 import '../public/style.scss';
 
 const App = props => {
-
-
-  // const initialState = [
-  //   {
-  //     topic: 'React',
-  //     description: 'The front-end framework we all know and love',
-  //     id: 1
-  //   },
-  //   {
-  //     topic: 'Redux',
-  //     description: 'The state-management framework we all know and love',
-  //     id: 2
-  //   },
-  //   {
-  //     topic: 'Express',
-  //     description: 'The back-end framework we all know and love',
-  //     id: 3
-  //   },
-  //   {
-  //     topic: 'Pets',
-  //     description: 'Animals are friendly for the house',
-  //     id: 4
-  //   }
-  // ]
-  const [topicList, setTopicList] = useState(['React', 'Redux', 'Express', 'Pets']);
-  const [activeTopic, setActiveTopic] = useState('Pets');
+  const initialState = [
+    {
+      name: 'React',
+      description: 'The front-end framework we all know and love',
+      id: 1
+    },
+    {
+      name: 'Redux',
+      description: 'The state-management framework we all know and love',
+      id: 2
+    },
+    {
+      name: 'Express',
+      description: 'The back-end framework we all know and love',
+      id: 3
+    },
+    {
+      name: 'Pets',
+      description: 'Animals are friendly for the house',
+      id: 4
+    }
+  ]
+  const [topicList, setTopicList] = useState(initialState);
+  const [activeTopic, setActiveTopic] = useState(topicList[0]);
 
   const highlightTopic = (e) => {
-    setActiveTopic(e.target.innerText);
+    setActiveTopic(topicList.find(element => element.name === e.target.innerText));
   };
-
+  
   return (
     <div className="app">
       <MyNavbar />
       <Sidebar topicList={topicList} highlightTopic={highlightTopic} activeTopic={activeTopic}/>
-      <Content topic={activeTopic} description="Animals are friendly for the house"/>
+      <Content topic={activeTopic} />
       <Footer />
     </div>
   );
