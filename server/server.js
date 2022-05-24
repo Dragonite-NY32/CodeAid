@@ -14,22 +14,16 @@ const PORT = 3000;
 // ~~~~~~~~~~~~~~~~~~~~~SERVE APP, 404, & ERROR HANDLING~~~~~~~~~~~~~~~~~~~~~ //
 if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'test') {
   app.use('/', express.static(path.join(__dirname, '../build')));
-
-  app.get('/', (req, res) => {
-    return res.status(200).sendFile(path.join(__dirname, '../build/index.html'));
-  });
+  app.get('/', (req, res) => res.status(200).sendFile(path.join(__dirname, '../build/index.html')));
 }
 
 if (process.env.NODE_ENV === 'test') {
-  app.get('/internalError', (req, res, next) => {
-    return next({message: { err: 'Something went wrong' }});
-  });
+  app.get('/internalError', (req, res, next) => next({ message: { err: 'Something went wrong' } }));
 }
 
-app.use('/*', (req, res) => {
-  return res.status(404).send('404 Not Found');
-});
+app.use('/*', (req, res) => res.status(404).send('404 Not Found'));
 
+// eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
   const defaultErr = {
     log: 'Express error handler caught unknown middleware error',
@@ -37,9 +31,9 @@ app.use((err, req, res, next) => {
     message: { err: 'An error occurred' },
   };
   const errorObj = { ...defaultErr, ...err };
+  // eslint-disable-next-line no-console
   console.log(errorObj.log);
   return res.status(errorObj.status).json(errorObj.message);
-})
-
+});
 
 module.exports = app.listen(PORT);

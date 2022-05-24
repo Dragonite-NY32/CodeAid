@@ -19,5 +19,16 @@
         "react"
     ],
     "rules": {
-    }
+    },
+    "overrides": [
+        {
+            "files": [
+                "./__tests__/*"
+            ],
+            "env": {
+                "jest": true,
+                "commonjs": true
+            }
+        }
+    ]
 }
