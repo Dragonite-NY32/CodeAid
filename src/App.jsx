@@ -14,33 +14,14 @@ import MyNavbar from './components/MyNavbar';
 import Sidebar from './components/Sidebar';
 import Content from './components/Content';
 import Footer from './components/Footer';
-import {Counter} from './features/counter/counter';
-
+import { useSelector } from 'react-redux';
 import '../public/style.scss';
 
 const App = props => {
-  const initialState = [
-    {
-      name: 'React',
-      description: 'The front-end framework we all know and love',
-      id: 1
-    },
-    {
-      name: 'Redux',
-      description: 'The state-management framework we all know and love',
-      id: 2
-    },
-    {
-      name: 'Express',
-      description: 'The back-end framework we all know and love',
-      id: 3
-    },
-    {
-      name: 'Pets',
-      description: 'Animals are friendly for the house',
-      id: 4
-    }
-  ]
+  // get topic list from redux toolkit store
+  const initialState = useSelector((state) => {
+    return state.topics;
+  });
   const [topicList, setTopicList] = useState(initialState);
   const [activeTopic, setActiveTopic] = useState(topicList[0]);
 

@@ -10,11 +10,22 @@
  */
 
 import React from 'react';
+import { useDispatch, } from 'react-redux';
+import topicReducer from '../reducers/topicSlice';
+import {activate} from '../reducers/topicSlice';
+
 
 const Topic = props => {
+
+  const dispatch = useDispatch();
+
   const classes = `topic ${props.active ? "active" : "inactive"}`;
+
   return (
-    <div className={classes} onClick={props.onClick}>
+    <div className={classes} onClick={(e) => {
+      dispatch(activate(e.target.innerText));
+    }
+    }>
       <p>{props.name}</p>
     </div>
   );
