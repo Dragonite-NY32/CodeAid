@@ -4,7 +4,7 @@ const { Pool } = pg;
 const dbURI = process.env.DB_URI;
 
 const pool = new Pool({
-  connectionString: URI
+  connectionString: dbURI
 });
 
 module.exports = {
