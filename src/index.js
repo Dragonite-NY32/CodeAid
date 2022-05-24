@@ -12,9 +12,17 @@
 import React from 'react';
 import ReactDOM from "react-dom";
 import { render } from 'react-dom';
+import store from './store';
+import { Provider } from 'react-redux';
 import { createRoot } from 'react-dom/client';
+import '../public/style.scss';
 import App from './App.jsx';
 
 const container = document.getElementById('contents');
 const root = createRoot(container); 
-root.render(<App />);
+root.render(
+  <Provider store={store}>
+  <App />
+  </Provider>);
+
+

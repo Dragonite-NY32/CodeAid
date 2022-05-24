@@ -2,7 +2,7 @@
  * ************************************
  *
  * @module  Example.jsx
- * @author Tim Ruszala
+ * @author 
  * @date
  * @description Just a test to get my bearings with React again
  *
@@ -10,14 +10,17 @@
  */
 
 import React, { useState } from 'react';
-import Example from './Example.jsx';
+import Post from './Post';
+
 
 const Content = props => {
 
   return (
     <div className="content">
-      <Example number={1}></Example>
-      <Example number={2}></Example>
+      <h1 className="topic-title">{props.topic}</h1>
+      <p className="description">{props.description}</p>
+      <Post user="Doggo" post="I like walks" time="12:00:00"/>
+      <Post user="Kitty" post="I like naps" time="12:01:00"/>
     </div>
   );
 }
