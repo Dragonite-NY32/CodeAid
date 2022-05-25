@@ -16,8 +16,12 @@ import Post from './Post';
 
 const Content = props => {
 
-  // get the currently active topic from the redux toolkit store
+  // get the currently active topic from the redux toolkit store!
   const activeTopic = useSelector((state) => state.topics.find(element => element.active === true));
+
+  if (!activeTopic) {
+    return (<div className="content"></div>);
+  }
 
   return (
     <div className="content">

@@ -44,10 +44,21 @@ export const topicSlice = createSlice({
       );
       topicToActivate.active = true;
     },
+    loadTopics: (state, action) => {
+      const topics = action.payload;
+      const newState = [];
+      for (let i = 0; i < topics.length; i++) {
+        const topic = topics[i];
+        if (i === 0) newState.push({ ...topic, active: true });
+        else newState.push({ ...topic, active: false });
+      }
+      state = newState;
+      return state;
+    }
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { activate } = topicSlice.actions;
+export const { activate, loadTopics } = topicSlice.actions;
 
 export default topicSlice.reducer;
