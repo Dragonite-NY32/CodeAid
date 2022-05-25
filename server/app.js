@@ -1,14 +1,18 @@
 const express = require('express');
 const path = require('path');
+const topicController = require('./controllers/topicController');
 
 const createApp = (database) => {
   const app = express();
-
-  // ~~~~~~~~~~~~~~~~~~~~~REQUIRE ROUTERS~~~~~~~~~~~~~~~~~~~~~ //
-
+  
   // ~~~~~~~~~~~~~~~~~~~~~PARSE REQUESTS~~~~~~~~~~~~~~~~~~~~~ //
+  app.use(express.json());
 
-  // ~~~~~~~~~~~~~~~~~~~~~ROUTES FOR ROUTERS~~~~~~~~~~~~~~~~~~~~~ //
+  // ~~~~~~~~~~~~~~~~~~~~~ROUTES~~~~~~~~~~~~~~~~~~~~~ //
+  app.get('/api/topics', topicController.getTopics, (req, res) => res.status(200).json(res.locals.topics));
+  app.get('/api/posts/:id', topicController.getPosts, (req, res) => res.status(200).json(res.locals.posts));
+  app.post('/api/topics', topicController.createTopic, (req, res) => res.status(200).json(res.locals.newTopicId));
+  app.post('/api/posts', topicController.createPost, (req, res) => res.status(200).json(res.locals.newPost));
 
   // ~~~~~~~~~~~~~~~~~~~~~SERVE APP, 404, & ERROR HANDLING~~~~~~~~~~~~~~~~~~~~~ //
   if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'test') {
