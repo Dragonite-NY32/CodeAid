@@ -6,7 +6,7 @@ dotenv.config();
 const { Pool } = pg;
 
 // Set URI depending on environment
-const dbURI = process.env.NODE_ENV === 'test' ? process.env.TEST_DB_URI : process.env.DB_URI;
+const dbURI = process.env.NODE_ENV === 'production' ? process.env.DB_URI : process.env.TEST_DB_URI;
 
 // Establish a new connection pool
 const pool = new Pool({
@@ -34,9 +34,10 @@ database.getTopics = async () => {
 
 database.createPost = async (post) => {
   const { title, content, author, topicId } = post;
-  const { rows } = await pool.query('INSERT INTO Posts(title, content, author) VALUES ($1, $2, $3) RETURNING id;', [title, content, author]);
+  const { rows } = await pool.query('INSERT INTO Posts(title, content, author) VALUES ($1, $2, $3) RETURNING *;', [title, content, author]);
   const postId = rows[0].id;
   await pool.query('INSERT INTO Topics_in_Posts(post_id, topic_id) VALUES($1, $2);', [postId, topicId]);
+  return rows[0];
 };
 
 database.getPosts = async (topicId) => {

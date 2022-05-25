@@ -1,4 +1,3 @@
-const { experiments } = require('webpack');
 const database = require('../server/models/database');
 
 beforeAll( async () => {
