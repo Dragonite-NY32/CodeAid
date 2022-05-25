@@ -1,7 +1,7 @@
 const path = require('path');
 const topicController = require(path.resolve(__dirname, '../server/controllers/topicController'));
 
-describe('topicController', () => {
+xdescribe('topicController', () => {
   let req;
   let res;
   let next;

@@ -1,15 +1,15 @@
 const database = require('../server/models/database');
 
 beforeAll( async () => {
-  const queries = [
-    database.query('DELETE FROM Topics_in_Posts'),
-    database.query('DELETE FROM Topics'),
-    database.query('ALTER SEQUENCE Topics_id_seq RESTART WITH 1;'),
-    database.query('DELETE FROM Posts'),
-    database.query('ALTER SEQUENCE Posts_id_seq RESTART WITH 1;'),
-  ];
-  return Promise.all(queries);
-})
+  const clearDatabase = `
+    DELETE FROM Topics_in_Posts;
+    DELETE FROM Topics;
+    DELETE FROM Posts;
+    ALTER SEQUENCE Topics_id_seq RESTART WITH 1;
+    ALTER SEQUENCE Posts_id_seq RESTART WITH 1;
+  `
+  database.query(clearDatabase);
+});
 
 afterAll(() => database.end(() => console.log('pool has ended')));
 

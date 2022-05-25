@@ -1,8 +1,12 @@
 const request = require('supertest');
 
-const server = require('../server/server');
+let server;
 
-afterAll(() => {
+beforeEach(() => {
+  server = require('../server/server');
+});
+
+afterEach(() => {
   server.close();
 });
 

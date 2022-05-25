@@ -34,10 +34,30 @@ database.getTopics = async () => {
 
 database.createPost = async (post) => {
   const { title, content, author, topicId } = post;
-  const { rows } = await pool.query('INSERT INTO Posts(title, content, author) VALUES ($1, $2, $3) RETURNING *;', [title, content, author]);
-  const postId = rows[0].id;
-  await pool.query('INSERT INTO Topics_in_Posts(post_id, topic_id) VALUES($1, $2);', [postId, topicId]);
+  const params = [title, content, author, ...topicIds];
+  const { rows } = await pool.query( generateQuery(topicIds), params);
+  // const { rows } = await pool.query('INSERT INTO Posts(title, content, author) VALUES ($1, $2, $3) RETURNING id;', [title, content, author]);
+  // const postId = rows[0].id;
+  // await pool.query('INSERT INTO Topics_in_Posts(post_id, topic_id) VALUES($1, $2);', [postId, topicId]);
   return rows[0];
+
+  const generateQuery = (topicIds) => {
+    const joinStatements = [];
+    let paramCount = 4;
+    topicIds.forEach(topicId => {
+      joinStatements.push(`(id, $${paramCount++})`);
+    });
+    const bulkInsertion = joinStatements.join(',');
+    const queryString = `
+      WITH id AS (INSERT INTO Posts(title, content, author) VALUES ($1, $2, $3) RETURNING id)
+      INSERT INTO Topics_in_Posts(post_id, topic_id) VALUES ${bulkInsertion};
+    `;
+    const queryString = `
+      WITH id AS (INSERT INTO Posts(title, content, author) VALUES ('title', 'content, 'author') RETURNING id)
+      INSERT INTO Topics_in_Posts(post_id, topic_id) VALUES (id, 1);
+    `;
+    return queryString;
+  }
 };
 
 database.getPosts = async (topicId) => {
