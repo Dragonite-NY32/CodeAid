@@ -1,3 +1,5 @@
+// @use './variables' as v;
+
 $text-dark: rgb(37, 37, 37);
 $text-light: lighten($text-dark, 15%);
 
