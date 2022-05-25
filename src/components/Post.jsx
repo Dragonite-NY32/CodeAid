@@ -16,7 +16,7 @@ const Post = props => {
     <div className="post">
       <p>{props.user} says:</p>
       <p>{props.post}</p>
-      <p>Sent at {props.time}</p>
+      <p>Sent at {props.time.slice(11,16)}</p>
     </div>
   );
 }

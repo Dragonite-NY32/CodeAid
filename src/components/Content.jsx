@@ -12,6 +12,8 @@
 import React, {useEffect, useState} from 'react';
 import { useSelector } from 'react-redux';
 import Post from './Post';
+import CreatePostDialogue from './CreatePostDialogue';
+
 
 
 const Content = props => {
@@ -33,13 +35,14 @@ const Content = props => {
       .then(postData => {
         setPosts(postData.map(post => <Post user={post.author} post={post.content} time={post.timestamp} />));
       });
-  }, []);
+  }, [activeTopic]);
 
   return (
     <div className="content">
       <h1 className="topic-title">{activeTopic.name}</h1>
       <p className="description">{activeTopic.description}</p>
       {posts}
+      <CreatePostDialogue activeTopic={activeTopic} posts={posts} setPosts={setPosts}/>
     </div>
   );
 }

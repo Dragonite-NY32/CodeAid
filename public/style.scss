@@ -1,14 +1,11 @@
-// @use './variables' as v;
-
-$text-dark: rgb(37, 37, 37);
-$text-light: lighten($text-dark, 15%);
+@use './colors' as c;
 
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
   font-family: Roboto;
-  color: $text-dark;
+  color: c.$primary-black;
 }
 
 html, body {
@@ -33,14 +30,14 @@ a {
   }
 
   .sidebar {
-    background-color: pink;
+    background-color: c.$primary-color;
     display: flex;
     flex-direction: column;
     grid-column: 1;
     padding: 1em;
 
     h2 {
-      border-bottom: 1px solid transparentize($text-dark, 0.5);
+      border-bottom: 1px solid transparentize(c.$primary-black, 0.5);
       padding-bottom: 0.5em;
       margin-bottom: 1em;
       margin-left: 0.5em;
@@ -48,9 +45,11 @@ a {
 
     .topic {
       margin: 0.25em 1em;
+      padding: 0.3em;
 
       &.active {
-        background-color: rgb(252, 205, 213);
+        background-color: c.$primary-color-lt;
+        padding: 2px;
       }
 
       &:hover {
@@ -60,22 +59,29 @@ a {
     }
   }
 
+  .home {
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    background-color: c.$secondary-color;
+
+    p {
+      margin: 1em 0;
+      display: inline-block;
+      max-width: 500px;
+    }
+  }
+
   .content {
-    background-color: yellow;
+    background-color: c.$secondary-color;
     grid-column: 2;
     padding: 1em;
 
     .description {
-      color: $text-light;
+      color: c.$primary-black;
       font-style: italic;
       margin: 0.5em 2em;
     }
-
-
-    .post {
-      border: 1px solid black;
-      border-radius: 5px;
-      margin: 1em 0;
       
       p {
         margin: .5em;
@@ -83,10 +89,30 @@ a {
     }
   }
 
+  .post, .createPostDialogue {
+    border: 1px solid c.$primary-black;
+    border-radius: 5px;
+    margin: 1em 0;
+    max-width: 700px;
+  }
+
+  .createPostDialogue {
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+
+    input {
+      margin: 0 0 1em;
+    }
+  }
+
+  #new-post-content {
+    height: 100px;
+  }
+
   .footer {
     grid-column: 1 / 3;
-    background-color: #fff;
+    background-color: c.$bkrd-primary-color;
     bottom: 0;
     text-align: center;
   }
-}
