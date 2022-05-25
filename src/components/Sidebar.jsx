@@ -25,7 +25,7 @@ const Sidebar = props => {
       .then(response => response.json())
       .then(topics => {
         console.log(topics);
-        // dispatch(loadTopics(topics));
+        dispatch(loadTopics(topics));
         setState(topics);
       });
   }, []);

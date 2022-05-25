@@ -19,6 +19,10 @@ const Content = props => {
   // get the currently active topic from the redux toolkit store
   const activeTopic = useSelector((state) => state.topics.find(element => element.active === true));
 
+  if (!activeTopic) {
+    return (<div className="content"></div>);
+  }
+
   return (
     <div className="content">
       <h1 className="topic-title">{activeTopic.name}</h1>

@@ -45,15 +45,14 @@ export const topicSlice = createSlice({
       topicToActivate.active = true;
     },
     loadTopics: (state, action) => {
-      console.dir(state);
-      // console.log('loadTopics hit');
-      console.log('action.payload:', action.payload);
-      // const topics = [];
-      // for (let i = 0; Object.values(action.payload).length; i++) {
-      //   const oldTopic = Object.values(action.payload)[i];
-      //   topics.push({ ...oldTopic, active: false });
-      // }
-      state = action.payload;
+      const topics = action.payload;
+      const newState = [];
+      for (let i = 0; i < topics.length; i++) {
+        const topic = topics[i];
+        if (i === 0) newState.push({ ...topic, active: true });
+        else newState.push({ ...topic, active: false });
+      }
+      state = newState;
       return state;
     }
   },
