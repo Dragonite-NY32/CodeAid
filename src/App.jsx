@@ -9,32 +9,28 @@
  * ************************************
  */
 
-import React, {useState} from 'react';
+import React from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MyNavbar from './components/MyNavbar';
 import Sidebar from './components/Sidebar';
+import Home from './routes/Home';
 import Content from './components/Content';
 import Footer from './components/Footer';
-import { useSelector } from 'react-redux';
 import '../public/style.scss';
 
 const App = props => {
-  // get topic list from redux toolkit store
-  const initialState = useSelector((state) => {
-    return state.topics;
-  });
-  const [topicList, setTopicList] = useState(initialState);
-  const [activeTopic, setActiveTopic] = useState(topicList[0]);
-
-  const highlightTopic = (e) => {
-    setActiveTopic(topicList.find(element => element.name === e.target.innerText));
-  };
   
   return (
     <div className="app">
-      <MyNavbar />
-      <Sidebar topicList={topicList} highlightTopic={highlightTopic} activeTopic={activeTopic}/>
-      <Content topic={activeTopic} />
-      <Footer />
+      <BrowserRouter>
+        <MyNavbar />  
+        <Sidebar />
+        <Routes>
+          <Route path='/' element={<Content />} />
+          <Route path='/home' element={ <Home /> }/>
+        </Routes>
+        <Footer />
+      </BrowserRouter>
     </div>
   );
 };

@@ -9,13 +9,16 @@
  * ************************************
  */
 
-import React, { useState } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 
 const MyNavbar = props => {
   return (
-  <div className="navbar">
-    <h1>CodeAid</h1>
+    <div className="navbar">
+      <Link to ="/home">
+        <h1>CodeAid</h1>
+      </Link>
   </div>
   )
 }

@@ -9,7 +9,7 @@
  * ************************************
  */
 
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import Topic from './Topic';
 
@@ -21,14 +21,14 @@ const Sidebar = props => {
 
   const topics = [];
   for (const topic of topicList) {
-    if (topic.active) topics.push(<Topic name={topic.name} active={true} onClick={props.highlightTopic}/>);
-    else topics.push(<Topic name={topic.name} active={false} onClick={props.highlightTopic}/>);
+    topics.push(<Topic topic={topic} />);
   }
   
   return (
     <div className="sidebar">
+      <h2>Topics</h2>
       <div className="home-section">
-        <Topic name="Home" active={false} />
+        {/* <Topic name="Home" active={false} /> */}
       </div>
       {topics}
     </div>

@@ -13,6 +13,10 @@ html, body {
   height: 100vh;
 }
 
+a {
+  text-decoration: none;
+}
+
 .app {
   display: grid;
   grid-template-columns: 200px 1fr;
@@ -33,11 +37,11 @@ html, body {
     grid-column: 1;
     padding: 1em;
 
-    .home-section > .topic {
+    h2 {
       border-bottom: 1px solid transparentize($text-dark, 0.5);
       padding-bottom: 0.5em;
       margin-bottom: 1em;
-
+      margin-left: 0.5em;
     }
 
     .topic {

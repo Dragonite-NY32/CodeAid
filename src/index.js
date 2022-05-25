@@ -19,8 +19,11 @@ import App from './App.jsx';
 const container = document.getElementById('contents');
 const root = createRoot(container); 
 root.render(
-  <Provider store={store}>
-  <App />
-  </Provider>);
+    <Provider store={store}>
+      <App />
+    </Provider>);
+  
+
+
 
 
