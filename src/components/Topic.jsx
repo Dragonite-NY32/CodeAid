@@ -10,6 +10,7 @@
  */
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import {activate} from '../reducers/topicSlice';
 
@@ -22,12 +23,15 @@ const dispatch = useDispatch();
   const classes = `topic ${props.topic.active ? "active" : "inactive"}`;
 
   return (
-    <div className={classes} onClick={(e) => {
-      dispatch(activate(e.target.innerText));
-    }
-    }>
-      <p>{props.topic.name}</p>
-    </div>
+    <Link to="/">
+      <div
+        className={classes}
+        onClick={(e) => {
+          dispatch(activate(e.target.innerText));
+        }}>
+        <p>{props.topic.name}</p>
+      </div>
+    </Link>
   );
 };
 
