@@ -1,43 +1,55 @@
-//valid ids for tdd, to be removed upon connection to db 
-const VALID_IDS = [0, 1, 2, 3, 4, 5];
+const database = require('../models/database');
+
 const topicController = {};
 
 topicController.getTopics = async (req, res, next) => {
   try {
-    // PLACEHOLDER FOR REAL DATA FROM DATABASE FOLLOWING AN "AWAIT" CALL
-    res.locals.topics = [
-      {
-        id: 0,
-        name: 'React',
-        description: 'frontend library',
-      },
-      {
-        id: 1,
-        name: 'Express',
-        description: 'server framework',
-      },
-      {
-        id: 2,
-        name: 'Redux',
-        description: 'state management',
-      },
-    ];
+    res.locals.topics = await database.getTopics();
     return next();
   } catch (err) {
-    return next(err);
+    return next({
+      log: 'An error occured in topicController.getTopics',
+      message: { err: 'Server unable to retreive topics.' }
+    });
   }
 };
 
 topicController.getPosts = async (req, res, next) => {
-  //todo
+  const { id } = req.params;
+  try {
+    res.locals.posts = await database.getPosts(id);
+    return next();
+  } catch (err) {
+    return next({
+      log: 'An error occured in topicController.getPosts',
+      message: { err: 'Server unable to retreive posts.' }
+    });
+  }
 };
 
-topicController.addPost = async (req, res, next) => {
-  //todo
+topicController.createPost = async (req, res, next) => {
+  try {
+    res.locals.newPost = await database.createPost(req.body);
+    return next();
+  } catch (err) {
+    return ({
+      log: 'An error occured in topicController.createPost',
+      message: { err: 'Server unable to create new post.' }
+    })
+  }
 };
 
-topicController.addTopic = async (req, res, next) => {
-  //todo
+topicController.createTopic = async (req, res, next) => {
+  const topic = req.body;
+  try {
+    res.locals.newTopicId = await database.createTopic(topic);
+    return next();
+  } catch (err) {
+    return next({
+      log: 'An error occured in topicController.createTopic',
+      message: { err: 'Server unable to create new topic.' }
+    });
+  }
 };
 
 module.exports = topicController;
