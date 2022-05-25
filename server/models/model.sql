@@ -31,7 +31,7 @@ ALTER TABLE Topics_in_posts ADD CONSTRAINT Topics_in_posts_fk0 FOREIGN KEY (post
 ALTER TABLE Topics_in_posts ADD CONSTRAINT Topics_in_posts_fk1 FOREIGN KEY (topic_id) REFERENCES Topics(id);
 
 
-INSERT INTO Topics(name, description) VALUES ('React', 'A frontend ')
+INSERT INTO Topics(name, description) VALUES ('React', 'A frontend library'), ('Redux', 'A frontend library'), ('Node', 'A frontend library'), ('Express', 'A frontend library'),
 
 
 
